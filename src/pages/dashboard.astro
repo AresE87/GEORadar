@@ -1,0 +1,23 @@
+---
+import AppLayout from '../layouts/AppLayout.astro';
+import ScoreOverview from '../components/ScoreOverview';
+import VisibilityTrendChart from '../components/VisibilityTrendChart';
+import QueryResponses from '../components/QueryResponses';
+---
+
+<AppLayout title="Dashboard — GEORadar">
+  <div id="dashboard-root">
+    <!-- Rendered by React on client -->
+  </div>
+
+  <script>
+    import { createElement } from 'react';
+    import { createRoot } from 'react-dom/client';
+    import DashboardApp from '../components/DashboardApp';
+
+    const root = document.getElementById('dashboard-root');
+    if (root) {
+      createRoot(root).render(createElement(DashboardApp));
+    }
+  </script>
+</AppLayout>

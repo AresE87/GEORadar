@@ -1,0 +1,27 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --color-brand: #3b82f6;
+    --color-brand-dark: #2563eb;
+    --color-surface: #ffffff;
+    --color-surface-secondary: #f8fafc;
+    --color-border: #e2e8f0;
+    --color-text: #0f172a;
+    --color-text-secondary: #64748b;
+  }
+
+  .dark {
+    --color-surface: #0f172a;
+    --color-surface-secondary: #1e293b;
+    --color-border: #334155;
+    --color-text: #f1f5f9;
+    --color-text-secondary: #94a3b8;
+  }
+
+  body {
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    color: var(--color-text);
+    background: var(--color-surface-secondary);
+  }
+}

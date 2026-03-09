@@ -1,0 +1,264 @@
+---
+import '../styles/global.css';
+import SEO from '../components/SEO.astro';
+import AuditTool from '../components/AuditTool';
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <SEO
+      title="GEORadar — Monitorea tu Visibilidad en ChatGPT, Claude y Perplexity"
+      description="¿Te menciona ChatGPT cuando tus clientes te buscan? GEORadar mide tu GEO Score en los principales LLMs y te dice cómo mejorar tu visibilidad en IA."
+    />
+  </head>
+  <body class="min-h-screen bg-white dark:bg-slate-950">
+    <!-- Nav -->
+    <nav class="fixed top-0 w-full bg-white/80 dark:bg-slate-950/80 backdrop-blur-md border-b border-slate-200 dark:border-slate-800 z-50">
+      <div class="max-w-6xl mx-auto px-6 py-3 flex items-center justify-between">
+        <a href="/" class="flex items-center gap-2">
+          <div class="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
+            <svg class="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10" /><circle cx="12" cy="12" r="4" />
+            </svg>
+          </div>
+          <span class="font-bold text-lg text-slate-900 dark:text-white">GEORadar</span>
+        </a>
+        <div class="flex items-center gap-4">
+          <a href="#pricing" class="text-sm text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white hidden sm:block">Precios</a>
+          <a href="#faq" class="text-sm text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white hidden sm:block">FAQ</a>
+          <a href="/dashboard" class="text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-lg transition-colors">
+            Dashboard
+          </a>
+        </div>
+      </div>
+    </nav>
+
+    <main>
+      <!-- HERO -->
+      <section class="pt-32 pb-16 px-6">
+        <div class="max-w-4xl mx-auto text-center">
+          <div class="inline-block px-3 py-1 bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 rounded-full text-sm font-medium mb-6">
+            Usado por +500 equipos de marketing y SEO
+          </div>
+          <h1 class="text-4xl sm:text-6xl font-extrabold text-slate-900 dark:text-white leading-tight">
+            ¿Apareces en ChatGPT<br />cuando tus clientes te buscan?
+          </h1>
+          <p class="mt-6 text-lg sm:text-xl text-slate-500 max-w-2xl mx-auto">
+            El 60% de las búsquedas de productos ya ocurren en ChatGPT, Claude y Perplexity.
+            GEORadar mide tu visibilidad en IA y te dice exactamente qué hacer para mejorarla.
+          </p>
+          <div class="mt-8 flex flex-col sm:flex-row gap-3 justify-center">
+            <a href="#audit" class="px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-xl text-lg transition-colors">
+              Analizar mi marca gratis ahora
+            </a>
+            <a href="#how" class="px-8 py-4 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 font-semibold rounded-xl text-lg transition-colors">
+              Ver cómo funciona
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <!-- THE SHIFT -->
+      <section class="py-16 px-6 bg-slate-50 dark:bg-slate-900">
+        <div class="max-w-4xl mx-auto">
+          <h2 class="text-3xl font-bold text-slate-900 dark:text-white text-center mb-8">
+            Google perdió el 25% del tráfico de búsqueda en 2 años.<br />
+            <span class="text-blue-600">La IA es el nuevo primer resultado.</span>
+          </h2>
+          <div class="grid sm:grid-cols-3 gap-6 mt-8">
+            <div class="bg-white dark:bg-slate-800 rounded-xl p-6 text-center border border-slate-200 dark:border-slate-700">
+              <p class="text-4xl font-bold text-blue-600">10.3</p>
+              <p class="text-sm text-slate-500 mt-2">min/sesión en Perplexity — más que Google</p>
+            </div>
+            <div class="bg-white dark:bg-slate-800 rounded-xl p-6 text-center border border-slate-200 dark:border-slate-700">
+              <p class="text-4xl font-bold text-blue-600">200M</p>
+              <p class="text-sm text-slate-500 mt-2">usuarios activos semanales en ChatGPT</p>
+            </div>
+            <div class="bg-white dark:bg-slate-800 rounded-xl p-6 text-center border border-slate-200 dark:border-slate-700">
+              <p class="text-4xl font-bold text-blue-600">+32%</p>
+              <p class="text-sm text-slate-500 mt-2">más leads calificados con optimización para IA</p>
+            </div>
+          </div>
+          <p class="text-center text-slate-500 mt-8 text-lg">
+            Tu SEO está optimizado. Tu GEO (Generative Engine Optimization): <strong class="text-slate-900 dark:text-white">no.</strong>
+          </p>
+        </div>
+      </section>
+
+      <!-- AUDIT TOOL EMBEDDED -->
+      <section id="audit" class="py-16 px-6">
+        <div class="max-w-4xl mx-auto">
+          <h2 class="text-3xl font-bold text-slate-900 dark:text-white text-center mb-2">
+            Prueba el AI Brand Audit
+          </h2>
+          <p class="text-center text-slate-500 mb-8">
+            Descubre tu GEO Score en 60 segundos. Sin registro, sin tarjeta.
+          </p>
+          <AuditTool client:load embedded={true} />
+        </div>
+      </section>
+
+      <!-- HOW IT WORKS -->
+      <section id="how" class="py-16 px-6 bg-slate-50 dark:bg-slate-900">
+        <div class="max-w-4xl mx-auto">
+          <h2 class="text-3xl font-bold text-slate-900 dark:text-white text-center mb-12">
+            Cómo funciona GEORadar
+          </h2>
+          <div class="grid sm:grid-cols-3 gap-8">
+            <div class="text-center">
+              <div class="w-12 h-12 bg-blue-100 dark:bg-blue-900/30 rounded-xl flex items-center justify-center mx-auto mb-4">
+                <span class="text-xl font-bold text-blue-600">1</span>
+              </div>
+              <h3 class="font-semibold text-slate-900 dark:text-white mb-2">Agrega tu marca</h3>
+              <p class="text-sm text-slate-500">Agrega tu marca y tus competidores. 2 minutos de setup.</p>
+            </div>
+            <div class="text-center">
+              <div class="w-12 h-12 bg-blue-100 dark:bg-blue-900/30 rounded-xl flex items-center justify-center mx-auto mb-4">
+                <span class="text-xl font-bold text-blue-600">2</span>
+              </div>
+              <h3 class="font-semibold text-slate-900 dark:text-white mb-2">Monitoreo automático</h3>
+              <p class="text-sm text-slate-500">GEORadar consulta ChatGPT, Claude y Perplexity automáticamente cada día.</p>
+            </div>
+            <div class="text-center">
+              <div class="w-12 h-12 bg-blue-100 dark:bg-blue-900/30 rounded-xl flex items-center justify-center mx-auto mb-4">
+                <span class="text-xl font-bold text-blue-600">3</span>
+              </div>
+              <h3 class="font-semibold text-slate-900 dark:text-white mb-2">Mejora tu visibilidad</h3>
+              <p class="text-sm text-slate-500">Recibe alertas y recomendaciones de contenido para mejorar tu posicionamiento en IA.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- WHO IS IT FOR -->
+      <section class="py-16 px-6">
+        <div class="max-w-4xl mx-auto">
+          <h2 class="text-3xl font-bold text-slate-900 dark:text-white text-center mb-12">
+            Para quién es GEORadar
+          </h2>
+          <div class="grid sm:grid-cols-2 gap-6">
+            <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-6">
+              <h3 class="font-semibold text-slate-900 dark:text-white mb-2">SEO Manager / Equipo de Marketing</h3>
+              <p class="text-sm text-slate-500">El canal que aún no estás midiendo. Complementa tu estrategia SEO con visibilidad en IA.</p>
+            </div>
+            <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-6">
+              <h3 class="font-semibold text-slate-900 dark:text-white mb-2">Founder B2B SaaS</h3>
+              <p class="text-sm text-slate-500">Sé visible donde tus compradores investigan. Los decisores B2B ya usan IA para evaluar opciones.</p>
+            </div>
+            <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-6">
+              <h3 class="font-semibold text-slate-900 dark:text-white mb-2">Agencia de Marketing Digital</h3>
+              <p class="text-sm text-slate-500">Ofrece GEO como nuevo servicio premium. Diferénciate con datos que nadie más tiene.</p>
+            </div>
+            <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-6">
+              <h3 class="font-semibold text-slate-900 dark:text-white mb-2">Director de Marketing</h3>
+              <p class="text-sm text-slate-500">Datos de visibilidad en IA en tu reporte mensual. Métricas claras para presentar al board.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- PRICING -->
+      <section id="pricing" class="py-16 px-6 bg-slate-50 dark:bg-slate-900">
+        <div class="max-w-5xl mx-auto">
+          <h2 class="text-3xl font-bold text-slate-900 dark:text-white text-center mb-12">Precios</h2>
+          <div class="grid sm:grid-cols-3 gap-6">
+            <div class="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 p-6">
+              <h3 class="text-lg font-semibold text-slate-900 dark:text-white">Free</h3>
+              <p class="text-3xl font-bold text-slate-900 dark:text-white mt-2">$0<span class="text-sm font-normal text-slate-500">/mes</span></p>
+              <ul class="mt-6 space-y-3 text-sm text-slate-600 dark:text-slate-400">
+                <li>&#10003; 1 marca</li>
+                <li>&#10003; 5 queries/día</li>
+                <li>&#10003; Solo ChatGPT</li>
+                <li>&#10003; Historial 7 días</li>
+              </ul>
+              <a href="/dashboard" class="block mt-6 text-center py-2 border border-blue-600 text-blue-600 rounded-lg font-medium hover:bg-blue-50 transition-colors">Empezar gratis</a>
+            </div>
+            <div class="bg-blue-600 rounded-xl p-6 text-white relative">
+              <div class="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-0.5 bg-yellow-400 text-yellow-900 text-xs font-bold rounded-full">Popular</div>
+              <h3 class="text-lg font-semibold">Pro</h3>
+              <p class="text-3xl font-bold mt-2">$49<span class="text-sm font-normal text-blue-200">/mes USD</span></p>
+              <ul class="mt-6 space-y-3 text-sm text-blue-100">
+                <li>&#10003; 5 marcas</li>
+                <li>&#10003; 50 queries/día</li>
+                <li>&#10003; 3 LLMs</li>
+                <li>&#10003; Historial 90 días</li>
+                <li>&#10003; Recomendaciones IA</li>
+                <li>&#10003; Alertas email</li>
+              </ul>
+              <a href="/dashboard" class="block mt-6 text-center py-2 bg-white text-blue-600 rounded-lg font-semibold hover:bg-blue-50 transition-colors">Elegir Pro</a>
+            </div>
+            <div class="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 p-6">
+              <h3 class="text-lg font-semibold text-slate-900 dark:text-white">Agency</h3>
+              <p class="text-3xl font-bold text-slate-900 dark:text-white mt-2">$199<span class="text-sm font-normal text-slate-500">/mes USD</span></p>
+              <ul class="mt-6 space-y-3 text-sm text-slate-600 dark:text-slate-400">
+                <li>&#10003; 25 marcas</li>
+                <li>&#10003; Queries ilimitadas</li>
+                <li>&#10003; 3 LLMs</li>
+                <li>&#10003; White-label</li>
+                <li>&#10003; API access</li>
+                <li>&#10003; Reportes PDF</li>
+              </ul>
+              <a href="/dashboard" class="block mt-6 text-center py-2 border border-blue-600 text-blue-600 rounded-lg font-medium hover:bg-blue-50 transition-colors">Elegir Agency</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- FAQ -->
+      <section id="faq" class="py-16 px-6">
+        <div class="max-w-3xl mx-auto">
+          <h2 class="text-3xl font-bold text-slate-900 dark:text-white text-center mb-12">Preguntas Frecuentes</h2>
+          <div class="space-y-4">
+            <details class="group bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl">
+              <summary class="px-6 py-4 cursor-pointer font-medium text-slate-900 dark:text-white">¿Qué es GEO y en qué se diferencia del SEO tradicional?</summary>
+              <div class="px-6 pb-4 text-sm text-slate-500">GEO (Generative Engine Optimization) es la práctica de optimizar tu contenido para aparecer en las respuestas de motores de IA como ChatGPT, Claude y Perplexity. A diferencia del SEO que se enfoca en rankings de Google, GEO se enfoca en cómo los LLMs mencionan y recomiendan tu marca.</div>
+            </details>
+            <details class="group bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl">
+              <summary class="px-6 py-4 cursor-pointer font-medium text-slate-900 dark:text-white">¿GEORadar puede hacer que ChatGPT me mencione más?</summary>
+              <div class="px-6 pb-4 text-sm text-slate-500">GEORadar no controla lo que dicen los LLMs, pero mide tu visibilidad actual y genera recomendaciones de contenido específicas. Siguiendo las mejores prácticas de GEO puedes mejorar significativamente cómo los LLMs te mencionan.</div>
+            </details>
+            <details class="group bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl">
+              <summary class="px-6 py-4 cursor-pointer font-medium text-slate-900 dark:text-white">¿Con qué frecuencia se actualiza la visibilidad?</summary>
+              <div class="px-6 pb-4 text-sm text-slate-500">En el plan Free se ejecutan 5 queries diarios. En Pro, 50 queries diarios a 3 LLMs con alertas. En Agency, los scans son ilimitados.</div>
+            </details>
+            <details class="group bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl">
+              <summary class="px-6 py-4 cursor-pointer font-medium text-slate-900 dark:text-white">¿Funciona para marcas fuera del mundo tecnológico?</summary>
+              <div class="px-6 pb-4 text-sm text-slate-500">Sí. GEORadar funciona para cualquier marca que quiera saber cómo aparece en búsquedas de IA, sea tecnología, servicios profesionales, e-commerce, salud, educación, o cualquier industria.</div>
+            </details>
+            <details class="group bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl">
+              <summary class="px-6 py-4 cursor-pointer font-medium text-slate-900 dark:text-white">¿Los LLMs cambian sus respuestas con el tiempo?</summary>
+              <div class="px-6 pb-4 text-sm text-slate-500">Sí. Los LLMs actualizan periódicamente su conocimiento y pueden cambiar cómo describen tu marca. GEORadar detecta estos cambios y te alerta.</div>
+            </details>
+          </div>
+        </div>
+      </section>
+
+      <!-- FINAL CTA -->
+      <section class="py-16 px-6 bg-blue-600">
+        <div class="max-w-3xl mx-auto text-center">
+          <h2 class="text-3xl font-bold text-white mb-4">Descubre tu visibilidad en IA</h2>
+          <p class="text-blue-100 mb-8">Audit gratuito en 60 segundos. Sin tarjeta de crédito.</p>
+          <a href="#audit" class="inline-block px-8 py-4 bg-white text-blue-600 font-semibold rounded-xl text-lg hover:bg-blue-50 transition-colors">
+            Descubrir mi visibilidad en IA — es gratis
+          </a>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white dark:bg-slate-950 border-t border-slate-200 dark:border-slate-800 py-8">
+      <div class="max-w-6xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div class="flex items-center gap-2">
+          <div class="w-6 h-6 bg-blue-600 rounded-md flex items-center justify-center">
+            <svg class="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10" /><circle cx="12" cy="12" r="4" />
+            </svg>
+          </div>
+          <span class="text-sm font-semibold text-slate-900 dark:text-white">GEORadar</span>
+        </div>
+        <p class="text-sm text-slate-500">© 2026 GEORadar. Monitorea tu visibilidad en IA.</p>
+      </div>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,95 @@
+---
+interface Props {
+  title?: string;
+  description?: string;
+  path?: string;
+  image?: string;
+}
+
+const {
+  title = 'GEORadar — Monitorea tu Visibilidad en ChatGPT, Claude y Perplexity',
+  description = '¿Te menciona ChatGPT cuando tus clientes te buscan? GEORadar mide tu GEO Score en los principales LLMs y te dice cómo mejorar tu visibilidad en IA.',
+  path = '/',
+  image = '/og-image.png',
+} = Astro.props;
+
+const canonicalUrl = `https://georadar.io${path}`;
+const keywords = 'GEO generative engine optimization herramienta, visibilidad chatgpt marca, como aparecer en chatgpt perplexity, LLMO monitor, SEO para IA chatgpt, brand visibility AI search, como mejorar visibilidad ia';
+---
+
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>{title}</title>
+<meta name="description" content={description} />
+<meta name="keywords" content={keywords} />
+<link rel="canonical" href={canonicalUrl} />
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+<!-- Open Graph -->
+<meta property="og:type" content="website" />
+<meta property="og:url" content={canonicalUrl} />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:image" content={`https://georadar.io${image}`} />
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={`https://georadar.io${image}`} />
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+<!-- Structured Data -->
+<script type="application/ld+json" set:html={JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "GEORadar",
+  "applicationCategory": "MarketingApplication",
+  "description": description,
+  "url": "https://georadar.io",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  },
+  "audience": {
+    "@type": "BusinessAudience",
+    "audienceType": "SEO Managers, Marketing Teams, SaaS Founders, Agencies"
+  }
+})} />
+
+<script type="application/ld+json" set:html={JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "¿Qué es GEO y en qué se diferencia del SEO tradicional?",
+      "acceptedAnswer": { "@type": "Answer", "text": "GEO (Generative Engine Optimization) es la práctica de optimizar tu contenido para aparecer en las respuestas de motores de IA como ChatGPT, Claude y Perplexity. A diferencia del SEO tradicional que se enfoca en rankings de Google, GEO se enfoca en cómo los LLMs mencionan y recomiendan tu marca." }
+    },
+    {
+      "@type": "Question",
+      "name": "¿GEORadar puede hacer que ChatGPT me mencione más?",
+      "acceptedAnswer": { "@type": "Answer", "text": "GEORadar no controla lo que dicen los LLMs, pero mide tu visibilidad actual y genera recomendaciones de contenido específicas para mejorar tu posicionamiento. Siguiendo las recomendaciones de GEO, las empresas pueden mejorar significativamente cómo los LLMs las mencionan." }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Con qué frecuencia se actualiza la visibilidad?",
+      "acceptedAnswer": { "@type": "Answer", "text": "En el plan Free se actualiza diariamente con 5 queries. En Pro, puedes ejecutar hasta 50 queries diarios y recibir alertas de cambios significativos. En Agency, los scans son ilimitados." }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Funciona para marcas fuera del mundo tecnológico?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Sí. GEORadar funciona para cualquier marca o empresa que quiera saber cómo aparece en búsquedas de IA, sea tecnología, servicios profesionales, e-commerce, salud, educación o cualquier otra industria." }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Los LLMs cambian sus respuestas con el tiempo?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Sí, los LLMs actualizan periódicamente su conocimiento. Por eso es importante monitorear tu visibilidad de forma continua. GEORadar detecta estos cambios y te alerta cuando tu posicionamiento cambia." }
+    }
+  ]
+})} />
