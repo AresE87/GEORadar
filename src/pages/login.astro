@@ -1,0 +1,26 @@
+---
+import PublicLayout from '@/layouts/PublicLayout.astro';
+import LoginForm from '@/components/auth/LoginForm';
+
+// If already logged in, redirect to dashboard
+const user = Astro.locals.user;
+if (user) {
+  return Astro.redirect('/dashboard');
+}
+---
+
+<PublicLayout title="Iniciar sesión - GEORadar">
+  <div class="min-h-[80vh] flex items-center justify-center px-4">
+    <div class="w-full max-w-sm">
+      <div class="text-center mb-8">
+        <h1 class="text-2xl font-bold text-slate-900">Inicia sesión en GEORadar</h1>
+        <p class="text-sm text-slate-500 mt-2">
+          Monitorea tu visibilidad en motores de IA
+        </p>
+      </div>
+      <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+        <LoginForm client:load />
+      </div>
+    </div>
+  </div>
+</PublicLayout>

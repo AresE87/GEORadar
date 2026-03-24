@@ -1,0 +1,20 @@
+---
+import PublicLayout from '@/layouts/PublicLayout.astro';
+import AuditContainer from '@/components/audit/AuditContainer';
+---
+
+<PublicLayout title="AI Brand Audit Gratis - GEORadar" description="Descubre cómo ChatGPT, Claude y Perplexity ven tu marca. Análisis gratuito en 15 segundos.">
+  <div class="min-h-[80vh] flex items-center justify-center px-4 py-16">
+    <div class="w-full max-w-2xl">
+      <div class="text-center mb-8">
+        <h1 class="text-3xl md:text-4xl font-bold text-slate-900">
+          ¿Cómo te ven los LLMs?
+        </h1>
+        <p class="text-base text-slate-500 mt-3 max-w-lg mx-auto">
+          Descubre tu visibilidad en ChatGPT, Claude y Perplexity. Gratis, sin registro, en 15 segundos.
+        </p>
+      </div>
+      <AuditContainer client:load theme="light" />
+    </div>
+  </div>
+</PublicLayout>

@@ -1,0 +1,32 @@
+---
+import AppLayout from '@/layouts/AppLayout.astro';
+import QueryResponses from '@/components/dashboard/QueryResponses';
+
+const { supabase, user } = Astro.locals;
+
+const { data: profile } = await supabase
+  .from('profiles')
+  .select('plan')
+  .eq('id', user!.id)
+  .single();
+
+const plan = profile?.plan ?? 'free';
+
+const { data: brands } = await supabase
+  .from('brands')
+  .select('id')
+  .eq('user_id', user!.id)
+  .limit(1);
+
+const brandId = brands?.[0]?.id ?? '';
+---
+
+<AppLayout title="Queries">
+  {brandId ? (
+    <QueryResponses client:load brandId={brandId} plan={plan} />
+  ) : (
+    <div class="text-center py-16">
+      <p class="text-slate-500">Agrega una marca primero</p>
+    </div>
+  )}
+</AppLayout>

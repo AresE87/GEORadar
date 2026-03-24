@@ -1,17 +1,128 @@
 ---
-
+import PublicLayout from '@/layouts/PublicLayout.astro';
+import AuditContainer from '@/components/audit/AuditContainer';
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<PublicLayout title="GEORadar - Monitorea tu Visibilidad en IA" description="Descubre si ChatGPT recomienda tu marca. Score de visibilidad en 3 LLMs + recomendaciones IA.">
+  <!-- HERO -->
+  <section class="relative bg-gradient-to-b from-slate-900 to-slate-800 py-24 px-4">
+    <div class="absolute inset-0 opacity-5" style="background-image: radial-gradient(circle, #fff 1px, transparent 1px); background-size: 24px 24px;" />
+    <div class="relative max-w-4xl mx-auto text-center">
+      <h1 class="text-4xl md:text-6xl font-bold text-white leading-tight">
+        ¿Cómo te ven ChatGPT, Claude y Perplexity?
+      </h1>
+      <p class="text-lg md:text-xl text-slate-300 mt-4 max-w-2xl mx-auto">
+        Descubre tu visibilidad en motores de IA. Gratis, sin registro, en 15 segundos.
+      </p>
+      <div class="mt-8">
+        <AuditContainer client:load theme="dark" />
+      </div>
+      <div class="flex items-center justify-center gap-6 mt-6 text-sm text-slate-400">
+        <span>15s análisis</span>
+        <span>Sin registro</span>
+        <span>3 LLMs analizados</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="py-20 px-4 bg-white">
+    <div class="max-w-5xl mx-auto">
+      <h2 class="text-3xl font-bold text-slate-900 text-center mb-12">Cómo funciona</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="text-center">
+          <div class="w-12 h-12 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center text-xl font-bold mx-auto">1</div>
+          <h3 class="text-lg font-semibold mt-4">Ingresa tu marca</h3>
+          <p class="text-sm text-slate-500 mt-2">Solo necesitas el nombre de tu marca o producto.</p>
+        </div>
+        <div class="text-center">
+          <div class="w-12 h-12 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center text-xl font-bold mx-auto">2</div>
+          <h3 class="text-lg font-semibold mt-4">Analizamos 3 LLMs</h3>
+          <p class="text-sm text-slate-500 mt-2">Consultamos ChatGPT, Claude y Perplexity sobre tu marca.</p>
+        </div>
+        <div class="text-center">
+          <div class="w-12 h-12 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center text-xl font-bold mx-auto">3</div>
+          <h3 class="text-lg font-semibold mt-4">Recibe tu GEO Score</h3>
+          <p class="text-sm text-slate-500 mt-2">Score de visibilidad + recomendaciones accionables.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section class="py-20 px-4 bg-slate-50">
+    <div class="max-w-5xl mx-auto">
+      <h2 class="text-3xl font-bold text-slate-900 text-center mb-12">Todo lo que necesitas</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        {[
+          { title: 'Score de Visibilidad', desc: 'Puntuación de 0 a 100 basada en menciones, posición y sentimiento.' },
+          { title: '3 Plataformas de IA', desc: 'Monitorea ChatGPT, Claude y Perplexity simultáneamente.' },
+          { title: 'Recomendaciones IA', desc: 'Quick wins y estrategias para mejorar tu visibilidad.' },
+          { title: 'Alertas de Cambios', desc: 'Recibe notificaciones cuando tu score cambie significativamente.' },
+          { title: 'Análisis de Competidores', desc: 'Descubre qué marcas aparecen cuando tu marca no.' },
+          { title: 'Historial de Datos', desc: 'Monitorea tendencias y progreso a lo largo del tiempo.' },
+        ].map((feature) => (
+          <div class="bg-white rounded-xl border border-slate-200 p-6">
+            <h3 class="text-base font-semibold text-slate-900">{feature.title}</h3>
+            <p class="text-sm text-slate-500 mt-2">{feature.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section id="pricing" class="py-20 px-4 bg-white">
+    <div class="max-w-5xl mx-auto">
+      <h2 class="text-3xl font-bold text-slate-900 text-center mb-12">Precios</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="bg-white rounded-xl border border-slate-200 p-6">
+          <h3 class="text-lg font-bold">Free</h3>
+          <p class="text-3xl font-bold mt-2">$0<span class="text-base font-normal text-slate-500">/mes</span></p>
+          <ul class="mt-6 space-y-2 text-sm text-slate-600">
+            <li>1 marca</li>
+            <li>Solo ChatGPT</li>
+            <li>7 días de historial</li>
+            <li>3 recomendaciones</li>
+          </ul>
+          <a href="/login" class="block mt-6 text-center py-2 px-4 border border-slate-300 rounded-lg text-sm font-medium hover:bg-slate-50">Empezar gratis</a>
+        </div>
+        <div class="bg-white rounded-xl border-2 border-blue-600 p-6 shadow-lg relative">
+          <span class="absolute -top-3 left-1/2 -translate-x-1/2 bg-blue-600 text-white text-xs font-bold px-3 py-1 rounded-full">Más popular</span>
+          <h3 class="text-lg font-bold">Pro</h3>
+          <p class="text-3xl font-bold mt-2">$49<span class="text-base font-normal text-slate-500">/mes</span></p>
+          <ul class="mt-6 space-y-2 text-sm text-slate-600">
+            <li>5 marcas</li>
+            <li>ChatGPT + Claude + Perplexity</li>
+            <li>90 días de historial</li>
+            <li>Todas las recomendaciones</li>
+            <li>Alertas por email</li>
+          </ul>
+          <a href="/login" class="block mt-6 text-center py-2 px-4 bg-blue-600 text-white rounded-lg text-sm font-medium hover:bg-blue-700">Upgrade a Pro</a>
+        </div>
+        <div class="bg-white rounded-xl border border-slate-200 p-6">
+          <h3 class="text-lg font-bold">Agency</h3>
+          <p class="text-3xl font-bold mt-2">$199<span class="text-base font-normal text-slate-500">/mes</span></p>
+          <ul class="mt-6 space-y-2 text-sm text-slate-600">
+            <li>25 marcas</li>
+            <li>ChatGPT + Claude + Perplexity</li>
+            <li>Historial ilimitado</li>
+            <li>Todas las recomendaciones</li>
+            <li>Alertas por email</li>
+            <li>Soporte prioritario</li>
+          </ul>
+          <a href="/login" class="block mt-6 text-center py-2 px-4 border border-slate-300 rounded-lg text-sm font-medium hover:bg-slate-50">Contactar ventas</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section class="py-20 px-4 bg-slate-900">
+    <div class="max-w-2xl mx-auto text-center">
+      <h2 class="text-3xl font-bold text-white mb-4">Empieza a monitorear tu visibilidad en IA</h2>
+      <p class="text-slate-400 mb-8">Análisis gratuito. Resultados inmediatos.</p>
+      <AuditContainer client:load theme="dark" />
+    </div>
+  </section>
+</PublicLayout>

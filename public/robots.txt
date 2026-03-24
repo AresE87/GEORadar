@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+Allow: /audit
+Sitemap: https://georadar.io/sitemap.xml

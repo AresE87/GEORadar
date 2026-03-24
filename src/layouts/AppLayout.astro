@@ -1,0 +1,132 @@
+---
+import BaseLayout from './BaseLayout.astro';
+
+interface Props {
+  title: string;
+}
+
+const { title } = Astro.props;
+const user = Astro.locals.user;
+
+if (!user) {
+  return Astro.redirect('/login');
+}
+
+const currentPath = Astro.url.pathname;
+
+const navItems = [
+  { href: '/dashboard', label: 'Overview', icon: 'LayoutDashboard' },
+  { href: '/dashboard/brands', label: 'Mis Marcas', icon: 'Building2' },
+  { href: '/dashboard/queries', label: 'Queries', icon: 'Search' },
+  { href: '/dashboard/recommendations', label: 'Recomendaciones', icon: 'Lightbulb' },
+  { href: '/dashboard/settings', label: 'Configuración', icon: 'Settings' },
+];
+---
+
+<BaseLayout title={`${title} - GEORadar`}>
+  <div class="flex h-screen overflow-hidden">
+    <!-- Sidebar Desktop -->
+    <aside class="hidden lg:flex lg:w-60 flex-col border-r border-slate-200 bg-white">
+      <div class="flex items-center gap-2 px-6 h-16 border-b border-slate-200">
+        <span class="text-xl font-bold text-slate-900">GEORadar</span>
+      </div>
+      <nav class="flex-1 px-3 py-4 space-y-1">
+        {navItems.map((item) => {
+          const isActive = currentPath === item.href || (item.href !== '/dashboard' && currentPath.startsWith(item.href));
+          return (
+            <a
+              href={item.href}
+              class={`flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
+                isActive
+                  ? 'bg-blue-50 text-blue-700'
+                  : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900'
+              }`}
+            >
+              <span class="w-5 h-5">{item.icon === 'LayoutDashboard' ? '📊' : item.icon === 'Building2' ? '🏢' : item.icon === 'Search' ? '🔍' : item.icon === 'Lightbulb' ? '💡' : '⚙️'}</span>
+              {item.label}
+            </a>
+          );
+        })}
+      </nav>
+      <div class="px-4 py-3 border-t border-slate-200">
+        <span class="inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium bg-slate-100 text-slate-700">
+          Free
+        </span>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <div class="flex-1 flex flex-col overflow-hidden">
+      <!-- Top Header -->
+      <header class="flex items-center justify-between h-16 px-4 md:px-8 border-b border-slate-200 bg-white">
+        <div class="flex items-center gap-4">
+          <!-- Mobile menu button -->
+          <button class="lg:hidden p-2 rounded-md text-slate-600 hover:bg-slate-100" id="mobile-menu-btn">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+          </button>
+          <h1 class="text-lg font-semibold text-slate-900">{title}</h1>
+        </div>
+        <div class="flex items-center gap-3">
+          <span class="text-sm text-slate-500">{user.email}</span>
+          <a href="/api/auth/callback?logout=true" class="text-sm text-slate-500 hover:text-slate-700">Salir</a>
+        </div>
+      </header>
+
+      <!-- Page Content -->
+      <main class="flex-1 overflow-y-auto p-4 md:p-8">
+        <div class="max-w-[1200px] mx-auto">
+          <slot />
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <!-- Mobile Sidebar Overlay -->
+  <div id="mobile-sidebar" class="fixed inset-0 z-50 hidden lg:hidden">
+    <div class="fixed inset-0 bg-black/50" id="mobile-overlay"></div>
+    <aside class="fixed left-0 top-0 bottom-0 w-60 bg-white shadow-xl">
+      <div class="flex items-center justify-between px-6 h-16 border-b border-slate-200">
+        <span class="text-xl font-bold text-slate-900">GEORadar</span>
+        <button id="mobile-close-btn" class="p-1 rounded text-slate-400 hover:text-slate-600">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+      <nav class="px-3 py-4 space-y-1">
+        {navItems.map((item) => {
+          const isActive = currentPath === item.href || (item.href !== '/dashboard' && currentPath.startsWith(item.href));
+          return (
+            <a
+              href={item.href}
+              class={`flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
+                isActive
+                  ? 'bg-blue-50 text-blue-700'
+                  : 'text-slate-600 hover:bg-slate-100'
+              }`}
+            >
+              {item.label}
+            </a>
+          );
+        })}
+      </nav>
+    </aside>
+  </div>
+
+  <script>
+    const menuBtn = document.getElementById('mobile-menu-btn');
+    const sidebar = document.getElementById('mobile-sidebar');
+    const overlay = document.getElementById('mobile-overlay');
+    const closeBtn = document.getElementById('mobile-close-btn');
+
+    function toggleSidebar() {
+      sidebar?.classList.toggle('hidden');
+    }
+
+    menuBtn?.addEventListener('click', toggleSidebar);
+    overlay?.addEventListener('click', toggleSidebar);
+    closeBtn?.addEventListener('click', toggleSidebar);
+  </script>
+</BaseLayout>

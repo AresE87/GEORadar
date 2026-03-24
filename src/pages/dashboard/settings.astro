@@ -1,0 +1,48 @@
+---
+import AppLayout from '@/layouts/AppLayout.astro';
+
+const { supabase, user } = Astro.locals;
+
+const { data: profile } = await supabase
+  .from('profiles')
+  .select('*')
+  .eq('id', user!.id)
+  .single();
+---
+
+<AppLayout title="Configuración">
+  <div class="max-w-2xl space-y-8">
+    <div class="bg-white rounded-xl border border-slate-200 p-6">
+      <h3 class="text-lg font-semibold text-slate-900 mb-4">Perfil</h3>
+      <div class="space-y-3">
+        <div>
+          <label class="text-sm font-medium text-slate-500">Email</label>
+          <p class="text-sm text-slate-900">{profile?.email}</p>
+        </div>
+        <div>
+          <label class="text-sm font-medium text-slate-500">Nombre</label>
+          <p class="text-sm text-slate-900">{profile?.full_name ?? 'No configurado'}</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="bg-white rounded-xl border border-slate-200 p-6">
+      <h3 class="text-lg font-semibold text-slate-900 mb-4">Plan</h3>
+      <div class="flex items-center gap-3">
+        <span class="inline-flex items-center rounded-full px-3 py-1 text-sm font-medium bg-slate-100 text-slate-700 capitalize">
+          {profile?.plan ?? 'free'}
+        </span>
+        {profile?.plan === 'free' && (
+          <a href="/api/billing/checkout" class="text-sm text-blue-600 font-medium hover:underline">
+            Upgrade a Pro →
+          </a>
+        )}
+        {profile?.plan !== 'free' && (
+          <a href="/api/billing/portal" class="text-sm text-blue-600 font-medium hover:underline">
+            Gestionar suscripción
+          </a>
+        )}
+      </div>
+    </div>
+  </div>
+</AppLayout>

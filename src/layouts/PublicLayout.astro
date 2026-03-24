@@ -1,0 +1,38 @@
+---
+import BaseLayout from './BaseLayout.astro';
+
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const { title, description } = Astro.props;
+---
+
+<BaseLayout title={title} description={description}>
+  <header class="border-b border-slate-200 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16">
+      <a href="/" class="text-xl font-bold text-slate-900">
+        GEORadar
+      </a>
+      <nav class="flex items-center gap-6">
+        <a href="/#pricing" class="text-sm text-slate-600 hover:text-slate-900">Pricing</a>
+        <a href="/login" class="text-sm font-medium text-blue-600 hover:text-blue-700">Login</a>
+      </nav>
+    </div>
+  </header>
+  <main>
+    <slot />
+  </main>
+  <footer class="border-t border-slate-200 bg-white mt-auto">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div class="flex items-center justify-between">
+        <span class="text-sm text-slate-500">&copy; 2026 GEORadar</span>
+        <div class="flex gap-4 text-sm text-slate-500">
+          <a href="/" class="hover:text-slate-700">Product</a>
+          <a href="/#pricing" class="hover:text-slate-700">Pricing</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+</BaseLayout>

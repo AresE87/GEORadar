@@ -1,0 +1,29 @@
+---
+import AppLayout from '@/layouts/AppLayout.astro';
+import DashboardContainer from '@/components/dashboard/DashboardContainer';
+
+const { supabase, user } = Astro.locals;
+
+// Get user plan
+const { data: profile } = await supabase
+  .from('profiles')
+  .select('plan')
+  .eq('id', user!.id)
+  .single();
+
+const plan = profile?.plan ?? 'free';
+
+// Get first brand
+const { data: brands } = await supabase
+  .from('brands')
+  .select('id')
+  .eq('user_id', user!.id)
+  .order('created_at', { ascending: true })
+  .limit(1);
+
+const firstBrandId = brands?.[0]?.id;
+---
+
+<AppLayout title="Overview">
+  <DashboardContainer client:load plan={plan} initialBrandId={firstBrandId} />
+</AppLayout>
