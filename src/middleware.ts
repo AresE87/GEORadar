@@ -1,24 +1,50 @@
 import { defineMiddleware } from 'astro:middleware';
 import { createServerClient } from '@/lib/supabase/server';
 
+const PUBLIC_PATHS = ['/', '/audit', '/login', '/api/audit/', '/api/webhooks/'];
+
+function isPublicPath(pathname: string): boolean {
+  // Exact matches for pages
+  if (pathname === '/' || pathname === '/audit' || pathname === '/login') return true;
+  // Prefix matches for APIs
+  if (pathname.startsWith('/api/audit/')) return true;
+  if (pathname.startsWith('/api/webhooks/')) return true;
+  // Static assets
+  if (pathname.startsWith('/_astro/') || pathname.startsWith('/favicon')) return true;
+  return false;
+}
+
+function isSupabaseConfigured(): boolean {
+  const url = import.meta.env.SUPABASE_URL ?? '';
+  return url.length > 0 && !url.includes('xxx');
+}
+
 export const onRequest = defineMiddleware(async (context, next) => {
   const { request, cookies, redirect, url } = context;
   const pathname = url.pathname;
 
-  // Create Supabase client for auth'd routes
-  const supabase = createServerClient(request, cookies);
+  // For public pages, don't require Supabase at all
+  if (isPublicPath(pathname)) {
+    if (isSupabaseConfigured()) {
+      try {
+        const supabase = createServerClient(request, cookies);
+        context.locals.supabase = supabase;
+        const { data: { user } } = await supabase.auth.getUser();
+        context.locals.user = user;
 
-  // Public audit API - no auth needed
-  if (pathname.startsWith('/api/audit/')) {
-    context.locals.supabase = supabase;
-    context.locals.user = null;
-    return next();
-  }
-
-  // Webhook routes - no auth needed (verified by signature)
-  if (pathname.startsWith('/api/webhooks/')) {
-    context.locals.supabase = supabase;
-    context.locals.user = null;
+        // If logged in and visiting /login, redirect to dashboard
+        if (pathname === '/login' && user) {
+          return redirect('/dashboard');
+        }
+      } catch {
+        // Supabase not available - continue without auth
+        context.locals.supabase = null as never;
+        context.locals.user = null;
+      }
+    } else {
+      context.locals.supabase = null as never;
+      context.locals.user = null;
+    }
     return next();
   }
 
@@ -32,12 +58,25 @@ export const onRequest = defineMiddleware(async (context, next) => {
         headers: { 'Content-Type': 'application/json' },
       });
     }
-    context.locals.supabase = supabase;
+    if (isSupabaseConfigured()) {
+      context.locals.supabase = createServerClient(request, cookies);
+    }
     context.locals.user = null;
     return next();
   }
 
-  // Get current user session
+  // All other routes require Supabase and auth
+  if (!isSupabaseConfigured()) {
+    if (pathname.startsWith('/dashboard')) {
+      return redirect('/login');
+    }
+    return new Response(
+      JSON.stringify({ error: 'Service not configured' }),
+      { status: 503, headers: { 'Content-Type': 'application/json' } }
+    );
+  }
+
+  const supabase = createServerClient(request, cookies);
   const { data: { user } } = await supabase.auth.getUser();
 
   context.locals.supabase = supabase;
@@ -51,7 +90,7 @@ export const onRequest = defineMiddleware(async (context, next) => {
     return next();
   }
 
-  // API routes (except audit, webhooks, cron) - require auth
+  // API routes - require auth
   if (pathname.startsWith('/api/')) {
     if (!user) {
       return new Response(JSON.stringify({ error: 'Unauthorized' }), {
@@ -62,6 +101,5 @@ export const onRequest = defineMiddleware(async (context, next) => {
     return next();
   }
 
-  // Public routes
   return next();
 });
