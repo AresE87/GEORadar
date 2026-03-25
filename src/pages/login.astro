@@ -3,8 +3,7 @@ import PublicLayout from '@/layouts/PublicLayout.astro';
 import LoginForm from '@/components/auth/LoginForm';
 
 // If already logged in, redirect to dashboard
-const user = Astro.locals.user;
-if (user) {
+if (Astro.locals.user) {
   return Astro.redirect('/dashboard');
 }
 ---
@@ -19,7 +18,7 @@ if (user) {
         </p>
       </div>
       <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
-        <LoginForm client:load />
+        <LoginForm client:only="react" />
       </div>
     </div>
   </div>
